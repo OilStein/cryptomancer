@@ -1,18 +1,16 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Status from '../components/Status'
 
 export default function Home({ping}) {
   return (
     <div>
       <Head>
-        <title>Cryptomancer</title>
+        <title>Cryptomancer - Home</title>
         <meta name="description" content="Vincit Rising Star Application" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div>
-        <h1>Welcome to Cryptomancer</h1>
-      </div>
+      <Status ping={ping} />
     </div>
   )
 }
