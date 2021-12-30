@@ -3,7 +3,7 @@ const dateToUnixTimestamp = (date) => {
 }
 
 const unixToDate = (unix) => {
-  return new Date(unix)
+  return new Date(unix).toLocaleString('en-GB')
 }
 
 export {

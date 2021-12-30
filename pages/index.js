@@ -2,11 +2,13 @@ import Layout from "../components/Layouts"
 import Form from "../components/Form"
 import { useState } from "react"
 import { dateToUnixTimestamp, unixToDate } from "../utils/timestamp"
+import Graph from "../components/Graph"
 
 
 
 export default function Home() {
-  const [prices , setPrices] = useState([])
+  const [prices , setPrices] = useState()
+  const [dates , setDates] = useState()
   
 
   const getDataPool = async (from , to) => {
@@ -16,12 +18,17 @@ export default function Home() {
       const res = await fetch(url)
       // returns arrays of date and price
       const { prices } = await res.json()
-      setPrices(prices)
+
+
+      const values = prices.map(item => item.slice(-1)).flat()
+      const dates = prices.map(item => item.slice(0,1)).flat().map(unixDate => unixToDate(unixDate))
+      
+      setPrices(values)
+      setDates(dates)
       
     } catch (error) {
       console.log(error.message);
     }
-    
   }
 
   // Form date format dd-mm-yyyy
@@ -39,6 +46,7 @@ export default function Home() {
 
   return (
     <Layout title='Cryptomancer - Home'>
+      <Graph prices={prices} dates={dates}></Graph>
       <Form submit={submit}></Form>
     </Layout>
 
