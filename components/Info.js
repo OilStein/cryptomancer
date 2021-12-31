@@ -1,4 +1,4 @@
-const Info = ({prices}) => {
+const Info = ({data}) => {
   return (
     <div>
       

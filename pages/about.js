@@ -1,6 +1,6 @@
 import Layout from "../components/Layouts"
 
-
+// TODO add card css with description with why I used these
 const About = () => {
   return (
     <Layout>
