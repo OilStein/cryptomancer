@@ -1,24 +1,18 @@
+import Card from "../components/Card"
 import Layout from "../components/Layouts"
+import data from "../tech.json"
 
 // TODO add card css with description with why I used these
 const About = () => {
+  const tech = data.tech
   return (
     <Layout>
-      <div>
-        <h1 className="text-xl mb-4">
-          Used technologies:
-        </h1>
-        <ul>
-          <li>
-            <a href='https://nextjs.org/'>Next.js</a>
-          </li>
-          <li>
-            <a href="https://tailwindcss.com">tailwindcss</a>
-          </li>
-          <li>
-            <a href="https://www.chartjs.org/docs/latest/">Chart.js</a>
-          </li>
-        </ul>
+      <div className="flex">
+        {tech.map(item => {
+          return (
+            <Card key={item.title} title={item.title} description={item.description} logo={item.logo} url={item.url}></Card>
+          )
+        })}
       </div>
 
     </Layout>

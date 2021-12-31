@@ -1,10 +1,9 @@
 import Layout from "../components/Layouts"
 import Form from "../components/Form"
 import Info from "../components/Info"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { dateToUnixTimestamp} from "../utils/timestamp"
 import dynamic from "next/dynamic"
-import { filterDates, filterPrices, filterValue } from "../utils/utils"
 import { getDataPool } from "../services/coinGecko"
 
 // Window error without dynamic import
@@ -20,8 +19,9 @@ export const Home = ({initData}) =>  {
     event.preventDefault()
     const target = event.target
     // Must convert to date to get timestamp
+    // TODO Make timestamp more accurate
     const from = dateToUnixTimestamp(target.from.value)
-    const to = dateToUnixTimestamp(target.to.value)
+    const to = dateToUnixTimestamp(target.to.value, 1)
     const data = await getDataPool(from, to)
     // console.log(data);
     setData(data)
@@ -40,7 +40,9 @@ export const Home = ({initData}) =>  {
 export const getStaticProps = async () => {
   try {
     const from = new Date()
-    from.setMonth(from.getMonth() - 6)
+    from.setMonth(from.getMonth() - 6, 1)
+    from.setHours(23, 59)
+    console.log(from);
     const to = new Date()
     to.setHours(to.getHours() + 1)
     const data = await getDataPool(dateToUnixTimestamp(from),dateToUnixTimestamp(to))

@@ -7,14 +7,12 @@ import {filterValue, filterDates} from '../utils/utils'
 Chart.register(zoomPlugin)
 
 const Graph = ({data}) => {
-
-  // TODO Useless states
   const [prices , setPrices] = useState()
   const [dates , setDates] = useState()
 
   useEffect(() => { 
     const values = filterValue(data.prices)
-    const dates = filterDates(data.prices)
+    const dates = filterDates(data.prices).map(date => date.substring(0, 10))
     setPrices(values)
     setDates(dates)
 
