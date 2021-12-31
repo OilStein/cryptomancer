@@ -12,7 +12,7 @@ const Layout = ({children, title}) => {
       </Head>
       
     
-      <main className='container mx-auto max-w-xl pt-8 min-h-screen'>
+      <main className='container mx-auto max-w-4xl pt-8 min-h-screen'>
         <Nav />
         <Header />
         {children}

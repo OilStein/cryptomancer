@@ -15,6 +15,9 @@ const About = () => {
           <li>
             <a href="https://tailwindcss.com">tailwindcss</a>
           </li>
+          <li>
+            <a href="https://www.chartjs.org/docs/latest/">Chart.js</a>
+          </li>
         </ul>
       </div>
 
