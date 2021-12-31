@@ -4,9 +4,9 @@ const getDataPool = async (from , to) => {
     //console.log(url);
     const res = await fetch(url)
     // returns arrays of date and price
-    const { prices } = await res.json()
+    const data = await res.json()
 
-    return prices
+    return data
     // setData(prices)
     
   } catch (error) {

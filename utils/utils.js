@@ -1,6 +1,8 @@
 import { unixToDate } from "./timestamp"
 
-const filterPrices = (data) => {
+
+// CAn be used prices, market_cap and volumes
+const filterValue = (data) => {
   return data.map(item => item.slice(-1)).flat()
 }
 
@@ -10,5 +12,5 @@ const filterDates = (data) => {
 
 export {
   filterDates,
-  filterPrices
+  filterValue
 }
