@@ -1,10 +1,23 @@
 import { Line } from "react-chartjs-2";
 import Chart from 'chart.js/auto'
 import zoomPlugin from 'chartjs-plugin-zoom'
+import {useEffect, useState} from 'react'
+import {filterValue, filterDates} from '../utils/utils'
 
 Chart.register(zoomPlugin)
 
-const Graph = ({prices, dates}) => {
+const Graph = ({data}) => {
+  const [prices , setPrices] = useState()
+  const [dates , setDates] = useState()
+
+  useEffect(() => { 
+    const values = filterValue(data.prices)
+    const dates = filterDates(data.prices).map(date => date.substring(0, 10))
+    setPrices(values)
+    setDates(dates)
+
+  }, [data])
+
   const zoomOptions = {
     limits: {
       x: {min: 'original', max: 'original', minRange: 60 * 100},

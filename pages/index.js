@@ -1,8 +1,10 @@
 import Layout from "../components/Layouts"
 import Form from "../components/Form"
-import { useEffect, useState } from "react"
-import { dateToUnixTimestamp, unixToDate } from "../utils/timestamp"
+import Info from "../components/Info"
+import { useState } from "react"
+import { dateToUnixTimestamp} from "../utils/timestamp"
 import dynamic from "next/dynamic"
+import { getDataPool } from "../services/coinGecko"
 
 // Window error without dynamic import
 const Graph = dynamic(() => import('../components/Graph'), {ssr: false})
@@ -10,51 +12,25 @@ const Graph = dynamic(() => import('../components/Graph'), {ssr: false})
 
 export const Home = ({initData}) =>  {
   const [data, setData] = useState(initData)
-  const [prices , setPrices] = useState()
-  const [dates , setDates] = useState()
-
-  useEffect(() => { 
-    const values = data.map(item => item.slice(-1)).flat()
-    const dates = data.map(item => item.slice(0,1)).flat().map(unixDate => unixToDate(unixDate))
-    setPrices(values)
-    setDates(dates)
-
-  }, [data])
-
-
-  
-
-  const getDataPool = async (from , to) => {
-    const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=eur&from=${from}&to=${to}`
-    try {
-      //console.log(url);
-      const res = await fetch(url)
-      // returns arrays of date and price
-      const { prices } = await res.json()
-
-      setData(prices)
-      
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
 
   // Form date format dd-mm-yyyy
   // TODO: Validate dates
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault()
     const target = event.target
     // Must convert to date to get timestamp
+    // TODO Make timestamp more accurate
     const from = dateToUnixTimestamp(target.from.value)
-    const to = dateToUnixTimestamp(target.to.value)
-
-    getDataPool(from, to)
-
+    const to = dateToUnixTimestamp(target.to.value, 1)
+    const data = await getDataPool(from, to)
+    // console.log(data);
+    setData(data)
   }
 
   return (
     <Layout title='Cryptomancer - Home'>
-      <Graph prices={prices} dates={dates}></Graph>
+      <Graph data={data}></Graph>
+      <Info data={data}></Info>
       <Form submit={submit}></Form>
     </Layout>
   )
@@ -64,22 +40,19 @@ export const Home = ({initData}) =>  {
 export const getStaticProps = async () => {
   try {
     const from = new Date()
-    from.setMonth(from.getMonth() - 6)
+    from.setMonth(from.getMonth() - 6, 1)
+    from.setHours(23, 59)
+    console.log(from);
     const to = new Date()
-    to.setHours(to.getHours() - 2)
-
-    const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=eur&from=${dateToUnixTimestamp(from)}&to=${dateToUnixTimestamp(to)}`
-    const res = await fetch(url)
-    // returns arrays of date and price
-    const { prices } = await res.json()
-
+    to.setHours(to.getHours() + 1)
+    const data = await getDataPool(dateToUnixTimestamp(from),dateToUnixTimestamp(to))
     return {
       props: {
-        initData: prices
+        initData: data
       }
     }
   } catch (error) {
-    
+    console.log({message});
   }
 }
 
