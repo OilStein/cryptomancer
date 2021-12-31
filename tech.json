@@ -1,0 +1,23 @@
+{
+  "tech": [
+    {
+      "title": "Next.js",
+      "url": "https://nextjs.org/",
+      "description": "Next.js gives you the best developer experience with all the features you need for production: hybrid static & server rendering, TypeScript support, smart bundling, route pre-fetching, and more. No config needed.",
+      "logo": "https://assets.vercel.com/image/upload/q_auto/front/assets/design/black-nextjs.png"
+    },
+    {
+      "title": "Tailwind CSS",
+      "url": "https://tailwindcss.com/",
+      "description": "Rapidly build modern websites without ever leaving your HTML.",
+      "logo": "https://tailwindcss.com/_next/static/media/tailwindcss-mark.79614a5f61617ba49a0891494521226b.svg"
+    },
+    {
+      "title": "Chart.js",
+      "url": "https://chartjs.org/",
+      "description": "Simple yet flexible JavaScript charting for designers & developers",
+      "logo": "https://chartjs.org/img/chartjs-logo.svg"
+    }
+  ]
+
+}
