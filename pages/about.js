@@ -7,6 +7,9 @@ const About = () => {
   const tech = data.tech
   return (
     <Layout>
+      <div className="pb-2 mb-2">
+        <h1 className="text-center text-lg font-semibold">Used technologies</h1>
+      </div>
       <div className="flex">
         {tech.map(item => {
           return (

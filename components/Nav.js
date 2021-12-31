@@ -20,6 +20,12 @@ const Nav = () => {
               </a>
             </Link>
           ))}
+          <Link href='https://github.com/OilStein/cryptomancer'>
+          <a className='text-gray-300 hover:bg-gray-600 hover:text-white 
+                            px-3 py-2 rounded-md text-sm font-medium'>
+               Source
+              </a>
+          </Link>
         </nav>
       </div>
     </div>
